@@ -1,11 +1,15 @@
 import express from 'express';
+import type { Request, Response} from 'express';
 
 const app = express();
 const PORT = 3000;
-app.get(`/api/status`, (req,res)=> {
-    res.json({
+
+app.use(express.json());
+app.get(`api/status`, (req: Request,res: Response)=> {
+    res.status(200).json({
        status: "Servidor en linea",
-       version: "1.0.0" 
+       version: "1.0.0", 
+       Message: "El servidor está funcionando correctamente",
     })
 })
 
