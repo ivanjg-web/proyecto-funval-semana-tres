@@ -13,10 +13,168 @@
   "paths": {
     "/api/status": {
       "get": {
-        "description": "",
+        "tags": [
+          "Sistema"
+        ],
+        "description": "Verifica el estado y funcionamiento del servidor.",
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/estudiantes/": {
+      "get": {
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Obtiene la lista de todos los estudiantes registrados. Permite filtrar por bootcamp mediante un parámetro de consulta.",
+        "parameters": [
+          {
+            "name": "bootcamp",
+            "in": "query",
+            "description": "Nombre del bootcamp para filtrar estudiantes",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de estudiantes obtenida correctamente"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Registra un nuevo estudiante en el sistema. El correo electrónico es obligatorio.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del nuevo estudiante",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "example": "Carlos Pérez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "carlos@gmail.com"
+                },
+                "bootcamp": {
+                  "type": "string",
+                  "example": "Backend"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Estudiante registrado correctamente"
+          },
+          "400": {
+            "description": "El campo email es obligatorio"
+          }
+        }
+      }
+    },
+    "/api/estudiantes/{id}": {
+      "get": {
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Obtiene los datos de un estudiante utilizando su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Identificador del estudiante"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estudiante encontrado correctamente"
+          },
+          "404": {
+            "description": "Estudiante no encontrado"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Actualiza los datos de un estudiante existente. Solo modifica los campos enviados.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Identificador del estudiante"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos que se desean actualizar",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {
+                  "type": "string",
+                  "example": "Carlos Pérez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "carlos@gmail.com"
+                },
+                "bootcamp": {
+                  "type": "string",
+                  "example": "Backend"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estudiante actualizado correctamente"
+          },
+          "404": {
+            "description": "Estudiante no encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Estudiantes"
+        ],
+        "description": "Elimina un estudiante del sistema utilizando su identificador.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Identificador del estudiante que se desea eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estudiante eliminado correctamente"
+          },
+          "404": {
+            "description": "Estudiante no encontrado"
           }
         }
       }
